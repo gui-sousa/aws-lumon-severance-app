@@ -93,7 +93,7 @@ This project is based on [Robin Spielmann](https://github.com/iam-robin/severanc
 ## Setup
 
 Put your AWS account keys in _variable.tf_
-```yaml
+```hcl
   variable "aws-access_key" {
       default = "<YOUR_ACCESS_KEY>"
       description = "Access Key to auth in AWS"
