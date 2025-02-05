@@ -43,6 +43,8 @@
 This project involves the deployment of an AWS infrastructure using Terraform, leveraging the App Runner. 
 The infrastructure is tailored to support the work software used in the TV series "Severance" from Apple TV
 
+This project is based on [Robin Spielmann](https://github.com/iam-robin/severance-interface), which developed the web application. It simulates a DevOps routine where we take the developer's project and structure the deployment for production delivery. Thanks Rob!
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
@@ -60,54 +62,50 @@ The infrastructure is tailored to support the work software used in the TV serie
 <!-- GETTING STARTED -->
 ### Prerequisites
 
-* Having a local (or cloud provider) Kubernetes infrastructure with at least two worker nodes;
-* Set your IP's;
-* Make sure you have kubernetes and load balancer ports relesead in your network;
-* Make sure you have docker installed.
+* Having a account in AWS with permissions to create IAM rules, App Runner and ECR;
+* Terraform with Docker and AWS installed;
+* Docker installed;
 
-### Installation
+### Usage
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/gui-sousa/grafana-k8s-lb.git
+   git clone https://github.com/gui-sousa/aws-lumon-severance-app.git
    ```
-2. Build docker image
+2. Run Terraform Deploy
    ```sh
-   docker run -d -p 80:80 --name lb-grafana gsousa/grafana-bwg:latest
+   terraform init && \
+   terraform plan -out lumon-app.tfplan && \
+   terraform apply "lumon-app.tfplan"
    ```
-3. Deploy k8s statements
+3. (Optional) Or run deploy it correctly form :-)
    ```sh
-    kubectl apply -f pv.yaml && \
-    kubectl apply -f pvc.yaml && \
-    kubectl apply -f service.yaml && \
-    kubectl apply -f deployment.yaml
+   terraform init && \
+   terraform plan -out lumon-app.tfplan && \
+   terraform apply "lumon-app.tfplan"
    ```
-4. Access you grafana initial setup page in _http://localhost_
+4. Click and access the URL displayed on the LUMON-URL output in terminal
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 <!-- USAGE EXAMPLES -->
-## Usage
+## Setup
 
-In _pv.yaml_ change the nfs server ip adress for your environment
+Put your AWS account keys in _variable.tf_
 ```yaml
-    nfs:
-    server: <YOUR STORAGE IP>
-    path: "/mnt/apps/grafana-vol"
+  variable "aws-access_key" {
+      default = "<YOUR_ACCESS_KEY>"
+      description = "Access Key to auth in AWS"
+      sensitive = true
+  }
+  
+  variable "aws-secret_key" {
+      default = "<YOUR_SECRET_KEY>"
+      description = "Access Key to auth in AWS"
+      sensitive = true
+  }
 ```
-
-The same in upstream block in nginx.conf
-```conf
-      upstream grafana {
-        server <K3S-NODE-1>:32009 weight=2 max_fails=3 fail_timeout=10;
-        server <K3S-NODE-2>:32009 backup;
-    }
-```
-
-This file, there is a load balancing configuration between the two Nodes running Grafana. All traffic is prioritized to *NODE-1* while *NODE-2* remains as a backup. 
-In this scenario, if Grafana on *NODE-1* experiences 2 connection failures within 10 seconds, all traffic is redirected to the Grafana hosted on *NODE-2*.
-
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -117,7 +115,7 @@ In this scenario, if Grafana on *NODE-1* experiences 2 connection failures withi
 
 Gui Sousa - https://www.linkedin.com/in/guilherme-sousa-rodrigues/
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/gui-sousa/Adfs-Packer-Terraform)
+Project Link: https://github.com/gui-sousa/aws-lumon-severance-app
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
