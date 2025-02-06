@@ -85,6 +85,14 @@ This project is based on [Robin Spielmann](https://github.com/iam-robin/severanc
    terraform apply "lumon-app.tfplan"
    ```
 4. Click and access the URL displayed on the LUMON-URL output in terminal
+   
+    https://github.com/user-attachments/assets/0c0efe09-1383-4d03-a3ac-d01e3667ed12
+
+
+
+
+
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
