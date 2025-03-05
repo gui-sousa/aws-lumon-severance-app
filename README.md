@@ -74,9 +74,7 @@ This project is based on [Robin Spielmann](https://github.com/iam-robin/severanc
    ```
 2. Run Terraform Deploy
    ```sh
-   terraform init && \
-   terraform plan -out lumon-app.tfplan && \
-   terraform apply "lumon-app.tfplan"
+   terraform init && terraform apply 
    ```
 3. (Optional) Or run deploy it correctly form :-)
    ```sh
